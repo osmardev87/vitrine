@@ -1,0 +1,29 @@
+services:
+  valheim:
+    image: ghcr.io/community-valheim-tools/valheim-server:latest
+    container_name: valheim-server
+    cap_add:
+      - SYS_NICE
+    env_file:
+      - valheim.env
+    volumes:
+      - ./valheim-data/config:/config
+      - ./valheim-data/data:/opt/valheim
+    ports:
+      - "2456-2458:2456-2458/udp"
+    expose:
+      - "80"
+    restart: unless-stopped
+    stop_grace_period: 2m
+
+  site:
+    image: nginx:1.27-alpine
+    depends_on:
+      - valheim
+    ports:
+      - "8080:80/tcp"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./loja-online.html:/usr/share/nginx/html/loja-online.html:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
