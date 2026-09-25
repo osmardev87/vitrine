@@ -44,3 +44,4 @@ docker compose down
 ```
 
 Isso não remove o mundo nem os backups, pois eles ficam no volume local `valheim-data/`.
+
