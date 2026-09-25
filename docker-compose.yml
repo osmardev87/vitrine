@@ -11,6 +11,7 @@ services:
       - ./valheim-data/data:/opt/valheim
     ports:
       - "2456-2458:2456-2458/udp"
+
     expose:
       - "80"
     restart: unless-stopped
@@ -27,3 +28,7 @@ services:
       - ./loja-online.html:/usr/share/nginx/html/loja-online.html:ro
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     restart: unless-stopped
+=======
+    restart: unless-stopped
+    stop_grace_period: 2m
+

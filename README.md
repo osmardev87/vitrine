@@ -45,8 +45,3 @@ docker compose down
 
 Isso não remove o mundo nem os backups, pois eles ficam no volume local `valheim-data/`.
 
-## Status em tempo real no site
-
-O serviço `site` publica a landing page em `http://IP_DO_SERVIDOR:8080` e encaminha `status.json` internamente para o servidor Valheim. Assim, a página mostra a quantidade de jogadores conectados e atualiza a consulta a cada 10 segundos, sem expor a porta de status diretamente na internet.
-
-O Valheim não disponibiliza a quantidade de mortes de cada jogador na consulta pública do servidor. Para exibir mortes reais no site, é necessário instalar um mod no servidor que registre eventos de morte e publique uma API própria; não use o campo `score` da consulta Steam como se fosse morte, pois ele não representa essa estatística no Valheim.

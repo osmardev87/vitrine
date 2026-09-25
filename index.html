@@ -52,6 +52,7 @@
     .detail strong { color:var(--cream); text-align:right; }
     footer { border-top:1px solid var(--line); padding:26px 0 40px; color:#83988d; font-size:13px; }
     .notice { margin-top:18px; color:var(--green); font-size:13px; min-height:20px; }
+
     .live-stats { margin:24px 0 70px; display:grid; grid-template-columns:repeat(3, 1fr); border:1px solid var(--line); background:var(--surface); }
     .live-stat { padding:23px; border-right:1px solid var(--line); }
     .live-stat:last-child { border-right:0; }
@@ -59,13 +60,20 @@
     .live-stat strong { display:block; margin-top:7px; color:var(--cream); font:30px Georgia, serif; }
     .live-stat small { display:block; margin-top:4px; color:var(--muted); font-size:12px; }
     @media (max-width:720px) { .live-stats { grid-template-columns:1fr; } .live-stat { border-right:0; border-bottom:1px solid var(--line); } .live-stat:last-child { border-bottom:0; } nav, .hero-content, main, footer { width:min(100% - 28px, 1120px); } nav { height:70px; } .brand { font-size:16px; } .hero-content { padding:76px 0 70px; } .server-card, .join { grid-template-columns:1fr; } .server-card { margin-top:48px; } .grid { grid-template-columns:1fr; } .section-heading { display:block; } .section-heading p { margin-top:14px; } .join-copy, .details { padding:30px 24px; } }
+
+    @media (max-width:720px) { nav, .hero-content, main, footer { width:min(100% - 28px, 1120px); } nav { height:70px; } .brand { font-size:16px; } .hero-content { padding:76px 0 70px; } .server-card, .join { grid-template-columns:1fr; } .server-card { margin-top:48px; } .grid { grid-template-columns:1fr; } .section-heading { display:block; } .section-heading p { margin-top:14px; } .join-copy, .details { padding:30px 24px; } }
+
   </style>
 </head>
 <body>
   <header class="hero">
     <nav>
       <a class="brand" href="#inicio" aria-label="Raiz do Norte, início"><span class="rune">ᛉ</span> RAIZ DO NORTE</a>
+
       <div class="status"><i class="dot" id="status-dot"></i><span id="server-status">A verificar servidor</span></div>
+
+      <div class="status"><i class="dot"></i> Servidor online</div>
+
     </nav>
     <div class="hero-content" id="inicio">
       <p class="eyebrow">Valheim • Comunidade brasileira</p>
@@ -96,6 +104,16 @@
         <article class="panel"><span class="number">03</span><h3>Eventos de saga</h3><p>Boss raids, expedições e desafios da comunidade. A cada semana, uma nova história para contar no salão.</p></article>
       </div>
     </section>
+=======
+    <section id="regras">
+      <div class="section-heading"><h2>Um reino para viver histórias.</h2><p>Chegue como um sobrevivente. Fique por causa dos aliados, das expedições e das histórias que só o seu clã pode criar.</p></div>
+      <div class="grid">
+        <article class="panel"><span class="number">01</span><h3>Cooperação em primeiro lugar</h3><p>Construções, recursos e desafios feitos para grupos. Respeite as bases e a aventura de cada viking.</p></article>
+        <article class="panel"><span class="number">02</span><h3>Progressão equilibrada</h3><p>Sem lojas de poder. Todos começam com as mesmas ferramentas e conquistam seu lugar no reino.</p></article>
+        <article class="panel"><span class="number">03</span><h3>Eventos de saga</h3><p>Boss raids, expedições e desafios da comunidade. A cada semana, uma nova história para contar no salão.</p></article>
+      </div>
+    </section>
+
     <section class="join" id="entrar">
       <div class="join-copy"><p class="eyebrow">Prepare o machado</p><h2>Junte-se à expedição.</h2><p>Abra o Valheim, escolha <strong>Entrar no jogo</strong> e use o endereço do servidor. Procure a senha com a administração da comunidade antes da sua primeira viagem.</p><a class="button primary" href="mailto:comunidade@raizdonorte.gg?subject=Quero%20entrar%20no%20servidor%20Valheim">Pedir acesso</a></div>
       <aside class="details"><h3>Informações do reino</h3><div class="detail"><span>Região</span><strong>Brasil</strong></div><div class="detail"><span>Modo</span><strong>Cooperativo / Survival</strong></div><div class="detail"><span>Capacidade</span><strong>10 vikings</strong></div><div class="detail"><span>Backup</span><strong>Diário</strong></div></aside>
@@ -106,6 +124,7 @@
     const button = document.getElementById('copy-button');
     const address = document.getElementById('server-address').textContent;
     const notice = document.getElementById('copy-notice');
+
     const serverStatus = document.getElementById('server-status');
     const onlineCount = document.getElementById('online-count');
     const onlineDetail = document.getElementById('online-detail');
@@ -132,6 +151,7 @@
 
     updateServerStatus();
     setInterval(updateServerStatus, 10000);
+
     button.addEventListener('click', async () => {
       try { await navigator.clipboard.writeText(address); notice.textContent = 'Endereço copiado. Vejo você nos dez mundos!'; }
       catch { notice.textContent = `Copie o endereço: ${address}`; }
